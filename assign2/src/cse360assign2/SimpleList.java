@@ -19,12 +19,12 @@ package cse360assign2;
  */
 public class SimpleList {
 	/**
-	 * LIST_SIZE is set to 10 since that is the size of the list
+	 * listSize is set to 10 since that is the size of the list
 	 * list is the array of numbers that will be kept
 	 * count contains the size of the list, which is initially 0
 	 */
-	final int LIST_SIZE = 10;
-	int list[] = new int[LIST_SIZE];
+	int listSize = 10;
+	int list[] = new int[listSize];
 	int count = 0;
 	
 	/**
@@ -37,10 +37,22 @@ public class SimpleList {
 	 * of the list
 	 */
 	public void add(int addNumber) {
-		for(int index = LIST_SIZE-1; index > 0; index--) {
-			list[index] = list[index-1];
+		if(count==listSize) {
+			listSize = (int)((float)listSize * 1.5);
+			int tempArray[] = new int[listSize];
+			for(int index = 1; index<=count; index++) {
+				tempArray[index] = list[index-1];
+			}
+			tempArray[0] = addNumber;
+			list = tempArray;
 		}
-		list[0] = addNumber;
+		else {
+			for(int index = listSize-1; index > 0; index--) {
+				list[index] = list[index-1];
+			}
+			list[0] = addNumber;
+		}
+		
 		count++;
 	}
 	/**
@@ -53,12 +65,25 @@ public class SimpleList {
 	public void remove(int removeNumber) {
 		int position = search(removeNumber);
 		while(position != -1) {
-			for(int index = position; index < LIST_SIZE-1; index++) {
+			for(int index = position; index < listSize-1; index++) {
 				list[index] = list[index+1];
 			}
-			list[LIST_SIZE-1] = 0;
+			list[listSize-1] = 0;
 			count--;
 			position = search(removeNumber);
+		}
+		if(count/listSize < 0.75) {
+			if(count < 1) {
+				listSize = 1;
+			}
+			else {
+				listSize = (listSize * 3) / 4;
+			}
+			int tempArray[] = new int[listSize];
+			for(int index = 0; index<count; index++) {
+				tempArray[index] = list[index];
+			}
+			list = tempArray;
 		}
 	}
 	/**
@@ -72,7 +97,7 @@ public class SimpleList {
 	public int search(int searchNumber) {
 		int searchLocation = -1;
 		int index = 0;
-		while(searchLocation == -1 && index < LIST_SIZE) {
+		while(searchLocation == -1 && index < listSize) {
 			if(list[index] == searchNumber) {
 				searchLocation = index;
 			}
@@ -105,5 +130,27 @@ public class SimpleList {
 		return result;
 	}
 	
+	public void append(int appendNumber) {
+		if(count==listSize) {
+			listSize = listSize + (listSize/2);
+			int tempArray[] = new int[listSize];
+			for(int index = 0; index<count; index++) {
+				tempArray[index] = list[index];
+			}
+			tempArray[count] = appendNumber;
+			list = tempArray;
+		}
+		else {
+			list[count] = appendNumber;
+		}
+		
+		count++;
+	}
+	public int first() {
+		return list[0];
+	}
+	public int size() {
+		return listSize;
+	}
+	
 }
-
