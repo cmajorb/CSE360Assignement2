@@ -6,6 +6,8 @@
  * This project creates a SimpleList class that has an array that
  * can hold 10 items and includes several functions to add new 
  * items, remove them, search, count, and print out the array.
+ * The list will also expand and shrink as numbers are added
+ * and removed from the list.
  */
 
 package cse360assign2;
@@ -37,18 +39,18 @@ public class SimpleList {
 	 * of the list
 	 */
 	public void add(int addNumber) {
-		if(count==listSize) {
-			listSize = (int)((float)listSize * 1.5);
+		if(count == listSize) {
+			listSize = listSize + (listSize/2);
 			int tempArray[] = new int[listSize];
-			for(int index = 1; index<=count; index++) {
-				tempArray[index] = list[index-1];
+			for(int index = 1; index <= count; index++) {
+				tempArray[index] = list[index - 1];
 			}
 			tempArray[0] = addNumber;
 			list = tempArray;
 		}
 		else {
-			for(int index = listSize-1; index > 0; index--) {
-				list[index] = list[index-1];
+			for(int index = listSize - 1; index > 0; index--) {
+				list[index] = list[index - 1];
 			}
 			list[0] = addNumber;
 		}
@@ -65,10 +67,10 @@ public class SimpleList {
 	public void remove(int removeNumber) {
 		int position = search(removeNumber);
 		while(position != -1) {
-			for(int index = position; index < listSize-1; index++) {
-				list[index] = list[index+1];
+			for(int index = position; index < listSize - 1; index++) {
+				list[index] = list[index + 1];
 			}
-			list[listSize-1] = 0;
+			list[listSize - 1] = 0;
 			count--;
 			position = search(removeNumber);
 		}
@@ -80,12 +82,13 @@ public class SimpleList {
 				listSize = (listSize * 3) / 4;
 			}
 			int tempArray[] = new int[listSize];
-			for(int index = 0; index<count; index++) {
+			for(int index = 0; index < count; index++) {
 				tempArray[index] = list[index];
 			}
 			list = tempArray;
 		}
 	}
+	
 	/**
 	 * This method searches for a given number within the list and
 	 * returns its location.
@@ -121,7 +124,7 @@ public class SimpleList {
 	 */
 	public String toString() {
 		String result = "";
-		if(count>0) {
+		if(count > 0) {
 			result = String.valueOf(list[0]);
 		}
 		for(int index = 1; index < count; index++) {
@@ -130,11 +133,18 @@ public class SimpleList {
 		return result;
 	}
 	
+	/**
+	 * This adds a number to the end of the list and will increase
+	 * the size of the array by 50% if it is full
+	 * 
+	 * @param appendNumber the number to be appended to the end
+	 * of the list
+	 */
 	public void append(int appendNumber) {
-		if(count==listSize) {
+		if(count == listSize) {
 			listSize = listSize + (listSize/2);
 			int tempArray[] = new int[listSize];
-			for(int index = 0; index<count; index++) {
+			for(int index = 0; index < count; index++) {
 				tempArray[index] = list[index];
 			}
 			tempArray[count] = appendNumber;
@@ -146,9 +156,21 @@ public class SimpleList {
 		
 		count++;
 	}
+	
+	/**
+	 * This method prints out the first number in the list
+	 * 
+	 * @return an integer of the first number in list
+	 */
 	public int first() {
 		return list[0];
 	}
+	
+	/**
+	 * This method prints out the max possible size of the list
+	 * 
+	 * @return an integer of the max list size
+	 */
 	public int size() {
 		return listSize;
 	}
