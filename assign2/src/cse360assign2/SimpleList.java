@@ -1,13 +1,15 @@
 /**
  * @author Clinton Brown
  * Class ID: 134
- * Assignment 1
+ * Assignment 2
  * 
  * This project creates a SimpleList class that has an array that
  * can hold 10 items and includes several functions to add new 
  * items, remove them, search, count, and print out the array.
  * The list will also expand and shrink as numbers are added
  * and removed from the list.
+ * 
+ * Code repository can be accessed at: https://github.com/cmajorb/CSE360Assignement2.git
  */
 
 package cse360assign2;
