@@ -66,20 +66,17 @@ public class SimpleList {
 	 */
 	public void remove(int removeNumber) {
 		int position = search(removeNumber);
-		while(position != -1) {
+		if(position != -1) {
 			for(int index = position; index < listSize - 1; index++) {
 				list[index] = list[index + 1];
 			}
 			list[listSize - 1] = 0;
 			count--;
-			position = search(removeNumber);
 		}
-		if(count/listSize < 0.75) {
-			if(count < 1) {
+		if(count <= (listSize * 3) / 4) {
+			listSize = (listSize * 3) / 4;
+			if(listSize < 1) {
 				listSize = 1;
-			}
-			else {
-				listSize = (listSize * 3) / 4;
 			}
 			int tempArray[] = new int[listSize];
 			for(int index = 0; index < count; index++) {
