@@ -162,7 +162,30 @@ public class SimpleList {
 	 * @return an integer of the first number in list
 	 */
 	public int first() {
-		return list[0];
+		int first;
+		if(count == 0) {
+			first = -1;
+		}
+		else {
+			first = list[0];
+		}
+		return first;
+	}
+	
+	/**
+	 * This method prints out the last number in the list
+	 * 
+	 * @return an integer of the last number in list
+	 */
+	public int last() {
+		int last;
+		if(count == 0) {
+			last = -1;
+		}
+		else {
+			last = list[count-1];
+		}
+		return last;
 	}
 	
 	/**

@@ -244,7 +244,32 @@ class SimpleListTest {
 	void testGetFirstNumberOfEmpty() {
 		SimpleList list = new SimpleList();
 		int output = list.first();
-		assertEquals(0,output);
+		assertEquals(-1,output);
+	}
+	
+	/*
+	 * This method will try getting the last element
+	 * of an empty list
+	 */
+	@Test
+	void testGetLastNumberOfEmpty() {
+		SimpleList list = new SimpleList();
+		int output = list.last();
+		assertEquals(-1,output);
+	}
+	
+	/*
+	 * This method will try adding 3 numbers to the list
+	 * and checking the last one
+	 */
+	@Test
+	void testGetLastNumber() {
+		SimpleList list = new SimpleList();
+		list.add(3);
+		list.add(2);
+		list.add(1);
+		int output = list.last();
+		assertEquals(3,output);
 	}
 	
 	/*
